@@ -5,30 +5,53 @@ import { ButtonIcon } from '../ButtonIcon';
 import { Minus, Plus } from '@phosphor-icons/react';
 import { useTheme } from 'styled-components';
 import { useState } from 'react';
+import { CartItem } from '../../reducers/cart/reducer';
+import { useCart } from '../../hooks/useCart';
 
 export type Props = {
-  title: string;
   description: string;
   tags: string[];
+  title: string;
   price: string;
+  id: number;
 }
 
-export function CoffeeCard({ title, description, price, tags }: Props) {
-  const [ammount, setAmmount] = useState(1);
+
+export function CoffeeCard({ title, description, price, tags, id }: Props) {
+  const [amount, setAmmount] = useState(1);
 
   const { COLORS } = useTheme();
 
+  const { addNewItem, increaseItem, cart } = useCart();
+
   function handleIncreaseAmmount() {
-    return setAmmount(ammount + 1);
+    return setAmmount(amount + 1);
   }
 
   function handleDecreaseAmmount() {
-    if (ammount - 1 === 0) {
+    if (amount - 1 === 0) {
       return;
     }
 
-    return setAmmount(ammount - 1);
+    return setAmmount(amount - 1);
   }
+
+  function handleAddNewItem(item: Props) {
+    const cartItem: CartItem = {
+      ...item,
+      amount,
+      price: parseFloat(price)
+    }
+
+    const inCart = cart.find(({ id }) => id === cartItem.id);
+
+    if (inCart) {
+      return increaseItem(cartItem, amount)
+    }
+
+    return addNewItem(cartItem);
+  }
+
 
   return (
     <Container>
@@ -61,12 +84,16 @@ export function CoffeeCard({ title, description, price, tags }: Props) {
         <div className='ammount'>
           <Minus onClick={handleDecreaseAmmount} className='ammount-btn' size={18} weight="thin" color={COLORS.PURPLE} />
 
-          {ammount}
+          {amount}
 
           <Plus onClick={handleIncreaseAmmount} className='ammount-btn' size={18} weight="thin" color={COLORS.PURPLE} />
         </div>
 
-        <ButtonIcon type='PURPLE' />
+        <ButtonIcon type='PURPLE' onClick={() => handleAddNewItem({
+          title, price, tags,
+          description,
+          id
+        })} />
       </Footer>
     </Container>
   );

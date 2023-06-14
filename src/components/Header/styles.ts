@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   height: 104px;
-  
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,6 +22,8 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: center;
 
+  margin-right: 160px;
+
   @media (max-width: 760px) {
     margin-right: 50px;
   }
@@ -38,7 +40,7 @@ export const Actions = styled.div`
     font-family: ${({ theme }) => theme.FONT_FAMILY.ROBOTO};
     font-size: ${({ theme }) => theme.FONT_SIZE.S}px;
     margin-right: 12px;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,4 +49,4 @@ export const Actions = styled.div`
       margin-left: 4px;
     }
   }
-`; 
+`;

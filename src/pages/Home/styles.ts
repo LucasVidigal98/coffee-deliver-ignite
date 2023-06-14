@@ -3,14 +3,15 @@ import styled from 'styled-components';
 export const Container = styled.div`
   height: 100vh;
 
-  padding-left: 160px;
-  // padding-right: 160px;
+  margin-left: 160px;
+  margin-right: 60px;
 
   flex-direction: column;
   display: flex;
 
   @media (max-width: 760px) {
-    padding-left: 50px;
+    margin-left: 50px;
+    margin-right: 0px;
   }
 `;
 

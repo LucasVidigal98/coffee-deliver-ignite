@@ -1,18 +1,22 @@
 import { ThemeProvider } from "styled-components"
 
 import theme from './theme';
-import { Home } from "./pages/Home";
 import { Header } from "./components/Header";
 
 
 import GlobalStyle from './theme/global.ts';
+import { CartContextProvider } from "./contexts/CartContext.tsx";
+import { Router } from "./Router";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
+      <CartContextProvider>
+        <Header />
+        <Router />
+      </CartContextProvider>
+
       <GlobalStyle />
-      <Home />
     </ThemeProvider>
   )
 }
